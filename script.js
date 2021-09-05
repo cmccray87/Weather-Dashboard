@@ -10,7 +10,7 @@ $(document).ready(function() {
 console.log("ready!");
 
 // on click city entered
-$("#basic-text1").on("click", function(event) {
+$("#basic").on("click", function(event) {
   event.preventDefault();
   var cityInput = $("#input").val(); 
   var allCities = []; 
@@ -38,7 +38,7 @@ function showWeather(cityInput) {
   + cityInput + "&units=imperial" + "&appid=45e45c0bb2ef540df33fa21a29aafa8a";
   console.log("oneDay", oneDay);  
 
-  //AJAX call for One Day
+  //call for One Day
   $.ajax({
       url: oneDay,
       method: "GET",
@@ -49,7 +49,7 @@ function showWeather(cityInput) {
     var lat = response.coord.lat; // Latiude 
     var lon = response.coord.lon; // Longitude 
   
-    // Append daily details to the site 
+    // daily details
     $("#dailyWeather").append(
       "<div class='col s12 m6'>"
       +  "<h2 class='daily'>" + response.name + " (" + startDate + ")" + "&nbsp" + "<img src='" + iconUrl  + "'>" + "</h2>"
@@ -57,34 +57,34 @@ function showWeather(cityInput) {
       +  "<ul class='daily'>" + "Humidity: " + response.main.humidity + "%" + "</ul>"
       +  "<ul class='daily'>" + "Wind Speed: " +  response.wind.speed + " MPH" + "</ul>"
       + "</div>"
-      ); // End of append 
+      ); 
 
   // QueryURL to Open Weather App 
   var fiveDay = "https://api.openweathermap.org/data/2.5/onecall?" 
   + "lat=" + lat + "&lon=" + lon + "&units=imperial" + "&appid=45e45c0bb2ef540df33fa21a29aafa8a";  
     console.log("fiveDay", fiveDay);
 
-   //AJAX call for Five Day & UV
+   //call for Five Day
   $.ajax({
     url: fiveDay,
     method: "GET",
     }).then(function(response) {
       
-      //icon urls
+      //icons
       var iconUrl1 = "http://openweathermap.org/img/w/" + response.daily[0].weather[0].icon + ".png";
       var iconUrl2 = "http://openweathermap.org/img/w/" + response.daily[1].weather[0].icon + ".png";
       var iconUrl3 = "http://openweathermap.org/img/w/" + response.daily[2].weather[0].icon + ".png";
       var iconUrl4 = "http://openweathermap.org/img/w/" + response.daily[3].weather[0].icon + ".png";
       var iconUrl5 = "http://openweathermap.org/img/w/" + response.daily[4].weather[0].icon + ".png";
    
-      // Adding in UV Index to daily weather 
+      // UV 
       $("#dailyWeather").append(
         "<div class='col s12 m6'>"
        + "<button class='w3-button' id='uvIndex' class='daily'>" + "UV Index: " + response.current.uvi + "</button>"
        + "</div>"
-       ); // End of append 
+       ); 
 
-      // UV Index colors 
+      // UV 
       if (response.current.uvi <= 2) {
         $("#uvIndex").addClass("green");
        } else if (response.current.uvi <= 5) {
@@ -101,9 +101,9 @@ function showWeather(cityInput) {
       $("#fiveDay").append(
         "<div class='col-md-12'>"
        + "<h2 id='fiveDay'>" + "5-Day Forecast:" + "</h2>" 
-      ); // End of append 
+      ); 
 
-       // DAY ONE DETAILS
+       // DAY ONE
       $("#day1").append(
        "<div class='fiveDayCard card col s12 m6'>"
        +  "<div class='card-body'>"
@@ -112,9 +112,9 @@ function showWeather(cityInput) {
        +  "<div class='card-text'>" + "Temp: " + response.daily[0].temp.day + " °F" + "</div>"
        +  "<div class='card-text'>" + "Humidity: " + response.daily[0].humidity + "%" + "</div>" 
        + "</div>" 
-      ); // End of append 
+      ); 
 
-      //DAY TWO DETAILS
+      //DAY TWO 
       $("#day2").append(
         "<div class='fiveDayCard card col s12 m6'>"
         +  "<div class='card-body'>"
@@ -123,9 +123,9 @@ function showWeather(cityInput) {
         +  "<div class='card-text'>" + "Temp: " + response.daily[1].temp.day + " °F" + "</div>"
         +  "<div class='card-text'>" + "Humidity: " + response.daily[1].humidity + "%" + "</div>" 
         + "</div>" 
-      ); // End of append 
+      ); 
 
-      //DAY THREE DETAILS
+      //DAY THREE
       $("#day3").append(
         "<div class='fiveDayCard card col s12 m6'>"
         +  "<div class='card-body'>"
@@ -134,9 +134,9 @@ function showWeather(cityInput) {
         +  "<div class='card-text'>" + "Temp: " + response.daily[2].temp.day + " °F" + "</div>"
         +  "<div class='card-text'>" + "Humidity: " + response.daily[2].humidity + "%" + "</div>" 
         + "</div>" 
-      ); // End of append 
+      );
 
-      //DAY FOUR DETAILS
+      //DAY FOUR
       $("#day4").append(
         "<div class='fiveDayCard card col s12 m6'>"
         +  "<div class='card-body'>"
@@ -145,9 +145,9 @@ function showWeather(cityInput) {
         +  "<div class='card-text'>" + "Temp: " + response.daily[3].temp.day + " °F" + "</div>"
         +  "<div class='card-text'>" + "Humidity: " + response.daily[3].humidity + "%" + "</div>" 
         + "</div>" 
-      ); // End of append 
+      ); 
 
-      //DAY FIVE DETAILS
+      //DAY FIVE 
       $("#day5").append(
         "<div class='fiveDayCard card col s12 m6'>"
         +  "<div class='card-body'>"
@@ -156,40 +156,40 @@ function showWeather(cityInput) {
         +  "<div class='card-text'>" + "Temp: " + response.daily[4].temp.day + " °F" + "</div>"
         +  "<div class='card-text'>" + "Humidity: " + response.daily[4].humidity + "%" + "</div>" 
         + "</div>" 
-      ); // End of append 
+      ); 
       
-      showCities(); // calls function to append cities
-      }) // End of ajax then response  
-    }) // End of ajax then response 
-  } // end of show weather function 
+      showCities(); 
+      }) 
+    }) 
+  } 
 
-//  Function to retrieve the stored input that was saved in each input 
+// retrieve stored input 
 function showCities() {
-  $("#cityButtons").empty(); // empties out previous array 
-  var arrayFromStorage = JSON.parse(localStorage.getItem("allCities")) || []; // Makes all cities searched a string
-  var arrayLength = arrayFromStorage.length; // limits length of array
+  $("#cityButtons").empty(); // empties
+  var arrayFromStorage = JSON.parse(localStorage.getItem("allCities")) || []; 
+  var arrayLength = arrayFromStorage.length;
 
-  for (var i = 0; i < arrayLength; i++) { // Loop so it prepends all cities within the length of the array
-    var cityNameFromArray = arrayFromStorage[i]; //
+  for (var i = 0; i < arrayLength; i++) { 
+    var cityNameFromArray = arrayFromStorage[i]; 
 
     $("#cityButtons").append (
       //styling 
       "<div class='list-group'>"
   
-    // City text
+    
     + "<button class='list-group-item'>" + cityNameFromArray 
     + "</button>")
-  } // end of loop 
-} // end of showCities function 
+  }
+}  
 
-showCities (); // calls function to append cities upon page load 
+showCities (); 
 
 // show cities on click 
 $("#cityButtons").on("click", ".list-group-item", function(event) {
   event.preventDefault();
   var cityInput = ($(this).text());
   showWeather(cityInput); 
-}) // end of city buttons on click
+}) 
 
-}); // end of document ready function
+}); 
 
